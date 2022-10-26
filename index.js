@@ -77,7 +77,7 @@ let viewAllRoles = () => {
 
 let viewEmployees = () => {
     connection.query(
-        `SELECT e.employee_name AS 'Employee',
+       `SELECT employee.id, , e.employee_name AS 'Employee',
         m.employee_name AS 'Manager'
         FROM employee e
         LEFT JOIN employee m

@@ -3,7 +3,7 @@ VALUES
 (1, 'Customer Service'),
 (2, 'Markerting');
 
-INSERT INTO role (title, salary, department_id)
+INSERT INTO roles (title, salary, department_id)
 VALUES 
 ('Customer Service Manager', 130000, 1),
 ('Customer Service Rep', 45000, 1),

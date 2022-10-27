@@ -8,7 +8,7 @@ const connection = mysql.createConnection({
     database: 'employees'
 })
 
-// THEN I am presented with the following options: View all departments, View all roles, View all employees, Add a department, Add a role, Add an employee, and update an employee role
+// THEN I am presented with the following options: View all departments, View all role, View all employees, Add a department, Add a role, Add an employee, and update an employee role
 
 
 let appMenu = [
@@ -16,7 +16,7 @@ let appMenu = [
         type: "list",
         name: "initial",
         message: "What would you like to do?",
-        choices: ["View all departments", "View all roles", "View all employees", "Add a department", "Add a role", "Add an employee", "Update an employee role"]
+        choices: ["View all departments", "View all role", "View all employees", "Add a department", "Add a role", "Add an employee", "Update an employee role"]
     }
 ]
 
@@ -25,12 +25,11 @@ let appMenu = [
 let init = () => {
     inquirer.prompt(appMenu)
         .then((answer) => {
-
             switch (answer.initial) {
                 case 'View all departments':
                     viewDepartments();
                     break;
-                case 'View all roles':
+                case 'View all role':
                     viewAllRoles();
                     break;
                 case 'View all employees':
@@ -67,7 +66,7 @@ let viewDepartments = () => {
 
 let viewAllRoles = () => {
     connection.query(
-        `SELECT title, salary FROM roles`,
+        `SELECT title, salary FROM role`,
         function (err, results, fields) {
             console.table(results);
             init()
@@ -79,8 +78,8 @@ let viewEmployees = () => {
     connection.query(
        `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, 
        CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee 
-       LEFT JOIN role on employee.role_id = role.id 
-       LEFT JOIN department on role.department_id = department.id 
+       LEFT JOIN role on role.id = employee.role_id 
+       LEFT JOIN department on department.id = role.department_id
        LEFT JOIN employee manager on manager.id = employee.manager_id;
         `,
         function (err, results, fields) {
@@ -90,10 +89,10 @@ let viewEmployees = () => {
     init();
 }
 
-let addDepartment = () => {
+// let addDepartment = () => {
 
 
 
-}
+// }
 
 init()

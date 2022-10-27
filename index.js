@@ -1,7 +1,5 @@
 import inquirer from 'inquirer'
 import mysql from 'mysql2'
-import cTable from 'console.table'
-
 
 
 const connection = mysql.createConnection({
@@ -192,6 +190,7 @@ let addEmployee = () => {
 }
 
     const updateRole = () => {
+
         //get all the employee list 
         connection.query("SELECT * FROM EMPLOYEE", (err, emplRes) => {
           if (err) throw err;

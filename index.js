@@ -8,8 +8,8 @@ const connection = mysql.createConnection({
     database: 'employees'
 });
 
-connection.connect(function(err) {
-    if(err) throw err;
+connection.connect(function (err) {
+    if (err) throw err;
 });
 
 // THEN I am presented with the following options: View all departments, View all role, View all employees, Add a department, Add a role, Add an employee, and update an employee role
@@ -26,7 +26,7 @@ let appMenu = [
 
 let init = () => {
     inquirer.prompt(appMenu)
-    .then((answer) => {
+        .then((answer) => {
             switch (answer.initial) {
                 case 'View all departments':
                     viewDepartments();
@@ -49,6 +49,9 @@ let init = () => {
                 case 'Update an employee role':
                     updateEmprole();
                     break;
+                case "Quit":
+                    connection.end();
+                    break;
             };
         });
 };
@@ -59,7 +62,7 @@ let viewDepartments = () => {
         `SELECT * FROM department`,
         function (err, results, fields) {
             console.table(results);
-             init()
+            init()
         }
     )
 }
@@ -77,7 +80,7 @@ let viewAllRoles = () => {
 
 let viewEmployees = () => {
     connection.query(
-       `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, 
+        `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, 
        CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee 
        LEFT JOIN role on role.id = employee.role_id 
        LEFT JOIN department on department.id = role.department_id
@@ -91,12 +94,23 @@ let viewEmployees = () => {
 }
 
 let addDepartment = () => {
-connection.query(
-    `INSERT INTO department SET ?`,
-    function (err, results, fields) {
-        console.table(results)
-        init();
+const addDept = [
+    {
+        type: "input",
+        name: "addDept",
+        message: "What is the name of the department?",
     }
-)}
+]
+    
+inquirer.prompt(addDept)
+.then((answer) => {
+    const query =  `INSERT INTO department VALUES ( , ${answer.addDept})`;
+    connection.query(query, [answer.addDept], (err,res) => {
+        if (err) throw err;
+    })
+    
+})
+}
+
 
 init();

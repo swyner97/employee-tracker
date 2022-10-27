@@ -17,8 +17,8 @@ INSERT INTO
 VALUES
     ('Max', 'Mayfield', 1, NULL),
     ('Eddie', 'Munson', 3, NULL),
-    ('Billy', 'Hargrove', 2, 1),
+    ('Billy', 'Hargrove',4 ,3 ),
     ('Steve', 'Harrington', 1, 2),
-    ('Robin', 'Buckley', 1, 1),
+    ('Robin', 'Buckley', 1, 2),
     ('Lucas', 'Sinclair', 1, 2),
-    ('Nancy', 'Wheeler', 2, 2);
+    ('Nancy', 'Wheeler', 4, 3);

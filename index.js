@@ -26,12 +26,12 @@ let appMenu = [
 
 let init = () => {
     inquirer.prompt(appMenu)
-        .then((answer) => {
+    .then((answer) => {
             switch (answer.initial) {
                 case 'View all departments':
-                    console.log('this works!')
+                    viewDepartments();
                     break;
-                case 'View all role':
+                case 'View all roles':
                     viewAllRoles();
                     break;
                 case 'View all employees':
@@ -49,9 +49,9 @@ let init = () => {
                 case 'Update an employee role':
                     updateEmprole();
                     break;
-            }
-        })
-}
+            };
+        });
+};
 
 
 let viewDepartments = () => {

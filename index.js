@@ -16,18 +16,16 @@ let appMenu = [
         type: "list",
         name: "initial",
         message: "What would you like to do?",
-        choices: ["View all departments", "View all role", "View all employees", "Add a department", "Add a role", "Add an employee", "Update an employee role"]
+        choices: ["View all departments", "View all roles", "View all employees", "Add a department", "Add a role", "Add an employee", "Update an employee role"]
     }
 ]
-
-
 
 let init = () => {
     inquirer.prompt(appMenu)
         .then((answer) => {
             switch (answer.initial) {
                 case 'View all departments':
-                    viewDepartments();
+                    console.log('this works!')
                     break;
                 case 'View all role':
                     viewAllRoles();
@@ -47,7 +45,6 @@ let init = () => {
                 case 'Update an employee role':
                     updateEmprole();
                     break;
-
             }
         })
 }
@@ -58,11 +55,11 @@ let viewDepartments = () => {
         `SELECT * FROM department`,
         function (err, results, fields) {
             console.table(results);
-            init()
+             init()
         }
     )
-
 }
+
 
 let viewAllRoles = () => {
     connection.query(
@@ -84,15 +81,18 @@ let viewEmployees = () => {
         `,
         function (err, results, fields) {
             console.table(results)
+            init();
         }
     )
-    init();
 }
 
-// let addDepartment = () => {
+let addDepartment = () => {
+connection.query(
+    `INSERT INTO department SET ?`,
+    function (err, results, fields) {
+        console.table(results)
+        init();
+    }
+)}
 
-
-
-// }
-
-init()
+init();

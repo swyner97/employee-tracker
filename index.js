@@ -2,15 +2,19 @@ import inquirer from 'inquirer'
 import mysql from 'mysql2'
 import cTable from 'console.table'
 
+
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
+    // password: '',
     database: 'employees'
 });
 
 connection.connect(function (err) {
     if (err) throw err;
 });
+
+
 
 // THEN I am presented with the following options: View all departments, View all role, View all employees, Add a department, Add a role, Add an employee, and update an employee role
 
@@ -20,7 +24,7 @@ let appMenu = [
         type: "list",
         name: "initial",
         message: "What would you like to do?",
-        choices: ["View all departments", "View all roles", "View all employees", "Add a department", "Add a role", "Add an employee", "Update an employee role"]
+        choices: ["View all departments", "View all roles", "View all employees", "Add a department", "Add a role", "Add an employee", "Update an employee role", "Quit"]
     }
 ]
 
@@ -104,13 +108,25 @@ const addDept = [
     
 inquirer.prompt(addDept)
 .then((answer) => {
-    const query =  `INSERT INTO department VALUES ( , ${answer.addDept})`;
+    const query =  `INSERT INTO department (name)
+    VALUES (?)`;
     connection.query(query, [answer.addDept], (err,res) => {
         if (err) throw err;
+        console.log(`Success! ${answer.addDept} has been added to your list of departments!`)
+        init();
     })
-    
 })
 }
 
+let addRole = () => {
+    const addRole = [
+        {
+            type: "input",
+            name: "role",
+            message: ""
+        
+        }
+    ]
+}
 
 init();

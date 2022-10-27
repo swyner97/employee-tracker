@@ -6,7 +6,11 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     database: 'employees'
-})
+});
+
+connection.connect(function(err) {
+    if(err) throw err;
+});
 
 // THEN I am presented with the following options: View all departments, View all role, View all employees, Add a department, Add a role, Add an employee, and update an employee role
 

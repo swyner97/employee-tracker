@@ -1,6 +1,6 @@
 # employee-tracker
 
-###  A command-line application where the user can manage a comapny's employee database, using Node.js, Inquirer and MySQL.
+###  A command-line application where the user can manage a company's employee database, using Node.js, Inquirer and MySQL.
 
  ------------------
 
